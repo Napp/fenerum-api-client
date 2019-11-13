@@ -28,7 +28,7 @@ class WebhookRequest extends FormRequest
     {
         return [
             'event' => ['required', 'string'],
-            'data' => ['required', 'array']
+            'data' => ['required', 'array'],
         ];
     }
 }

@@ -15,7 +15,7 @@ class WebhookController
      */
     public function handle(WebhookRequest $request)
     {
-        $class = 'Fenerum\\Webhooks\\Events\\' . Str::studly($request->input('event'));
+        $class = 'Fenerum\\Webhooks\\Events\\'.Str::studly($request->input('event'));
         if (class_exists($class)) {
             event(new $class($request->input('event'), $request->input('data')));
 

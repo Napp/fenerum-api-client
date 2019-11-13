@@ -19,11 +19,11 @@ class ApiClient
         $this->client = new Client([
             'base_uri' => config('fenerum.base_uri'),
             'headers' => [
-                'Authorization' => 'Token ' . config('fenerum.api_token'),
+                'Authorization' => 'Token '.config('fenerum.api_token'),
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ],
-            'timeout'  => 15.0
+            'timeout'  => 15.0,
         ]);
     }
 
@@ -81,7 +81,7 @@ class ApiClient
     }
 
     /**
-     * Send Request
+     * Send Request.
      *
      * @param string $method
      * @param string $uri
@@ -94,6 +94,7 @@ class ApiClient
     {
         if (! $this->isEnabled()) {
             Log::debug('FenerumAPIClient is not enabled. Please review config');
+
             return null;
         }
 
@@ -112,7 +113,7 @@ class ApiClient
     }
 
     /**
-     * Send Async Request as we dont want to wait for reply
+     * Send Async Request as we dont want to wait for reply.
      *
      * @param string $method
      * @param string $uri
@@ -125,6 +126,7 @@ class ApiClient
     {
         if (! $this->isEnabled()) {
             Log::debug('FenerumAPIClient is not enabled. Please review config');
+
             return null;
         }
 
@@ -165,7 +167,7 @@ class ApiClient
     }
 
     /**
-     * Makes sure that all config objects are set before we can use this
+     * Makes sure that all config objects are set before we can use this.
      * @return bool
      */
     private function isEnabled(): bool

@@ -7,8 +7,7 @@ namespace Fenerum;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class ApiService
- * @package Fenerum
+ * Class ApiService.
  * @see http://docs.fenerum.com/
  */
 class ApiService
@@ -158,7 +157,7 @@ class ApiService
     public function cancelSubscription(array $data, string $uuid): ?array
     {
         $this->validate($data, [
-            'cancellation_type' => 'required|string'
+            'cancellation_type' => 'required|string',
         ]);
 
         return $this->client->put('subscriptions/'.$uuid.'/cancel', $data);
@@ -245,7 +244,6 @@ class ApiService
     {
         return $this->client->get('invoices/'.$uuid);
     }
-
 
     /**
      * @param string $uuid
