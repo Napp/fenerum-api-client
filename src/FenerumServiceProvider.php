@@ -16,6 +16,7 @@ class FenerumServiceProvider extends ServiceProvider
             ], 'config');
         }
     }
+
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/fenerum.php', 'fenerum');
