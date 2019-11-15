@@ -55,6 +55,29 @@ CancelSubscription::class => [
 ```
 
 
+## Usage
+
+
+```php
+
+// use DI to resolve dependencies
+$accounts = app(\Fenerum\ApiService::class)->account();
+
+// or without DI
+$client = new \Fenerum\ApiClient();
+$fenerum = new \Fenerum\ApiService($client);
+$fenerum->account();
+```
+
+
+### Example - Get accounts
+
+```php
+use Fenerum\ApiService;
+
+$accounts = app(ApiService::class)->account()->listAccounts();
+```
+
 
 ### Webhook Events supported
 
