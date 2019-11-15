@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace Fenerum;
 
-use Illuminate\Validation\ValidationException;
+use Fenerum\API\Account;
+use Fenerum\API\Contract;
+use Fenerum\API\Invoice;
+use Fenerum\API\PaymentCard;
+use Fenerum\API\Plan;
+use Fenerum\API\Recipient;
+use Fenerum\API\Subscription;
 
 /**
  * Class ApiService.
@@ -27,298 +33,59 @@ class ApiService
     }
 
     /**
-     * @param string $method
-     * @param string $uri
-     * @param array|null $payload
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Fenerum\API\Account
      */
-    public function call(string $method, string $uri, ?array $payload = null): ?array
+    public function account(): Account
     {
-        return $this->client->request($method, $uri, $payload);
+        return new Account($this->client);
     }
 
     /**
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Fenerum\API\Contract
      */
-    public function listAccounts(): ?array
+    public function contract(): Contract
     {
-        return $this->client->get('accounts');
+        return new Contract($this->client);
     }
 
     /**
-     * @param string $code
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Fenerum\API\Invoice
      */
-    public function getAccount(string $code): ?array
+    public function invoice(): Invoice
     {
-        return $this->client->get('accounts/'.$code);
+        return new Invoice($this->client);
     }
 
     /**
-     * @see http://docs.fenerum.com/#operation/accounts_create
-     *
-     * @param array $data
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @return \Fenerum\API\PaymentCard
      */
-    public function createAccount(array $data): ?array
+    public function paymentCard(): PaymentCard
     {
-        $this->validate($data, [
-            'company_name' => 'required|string|max:128',
-            'code' => 'required|string|max:128',
-            'legal_address' => 'required|string',
-            'legal_zipcode' => 'required|string',
-            'legal_city' => 'required|string',
-            'legal_country' => 'required|string',
-        ]);
-
-        return $this->client->post('accounts', $data);
+        return new PaymentCard($this->client);
     }
 
     /**
-     * @param array $data
-     * @param string $code
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @return \Fenerum\API\Plan
      */
-    public function updateAccount(array $data, string $code): ?array
+    public function plan(): Plan
     {
-        $this->validate($data, [
-            'company_name' => 'required|string|max:128',
-            'code' => 'required|string|max:128',
-            'legal_address' => 'required|string',
-            'legal_zipcode' => 'required|string',
-            'legal_city' => 'required|string',
-            'legal_country' => 'required|string',
-        ]);
-
-        return $this->client->put('accounts/'.$code, $data);
+        return new Plan($this->client);
     }
 
     /**
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Fenerum\API\Recipient
      */
-    public function listSubscriptions(): ?array
+    public function recipient(): Recipient
     {
-        return $this->client->get('subscriptions');
+        return new Recipient($this->client);
     }
 
     /**
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Fenerum\API\Subscription
      */
-    public function getSubscription(string $uuid): ?array
+    public function subscription(): Subscription
     {
-        return $this->client->get('subscriptions/'.$uuid);
+        return new Subscription($this->client);
     }
 
-    /**
-     * @param array $data
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function createSubscription(array $data): ?array
-    {
-        $this->validate($data, [
-            'account' => 'required|string',
-            'terms' => 'required|string',
-            'collection_method' => 'required|string',
-        ]);
-
-        return $this->client->post('subscriptions', $data);
-    }
-
-    /**
-     * @param array $data
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function updateSubscription(array $data, string $uuid): ?array
-    {
-        return $this->client->put('subscriptions/'.$uuid, $data);
-    }
-
-    /**
-     * @param array $data
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function cancelSubscription(array $data, string $uuid): ?array
-    {
-        $this->validate($data, [
-            'cancellation_type' => 'required|string',
-        ]);
-
-        return $this->client->put('subscriptions/'.$uuid.'/cancel', $data);
-    }
-
-    /**
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function listPlans(): ?array
-    {
-        return $this->client->get('plans');
-    }
-
-    /**
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getPlan(string $uuid): ?array
-    {
-        return $this->client->get('plans/'.$uuid);
-    }
-
-    /**
-     * @param array $data
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function calculatePlans(array $data): ?array
-    {
-        $this->validate($data, [
-            'account_country_code' => 'required|string',
-            'terms' => 'required|string',
-            'quantity' => 'required|integer',
-        ]);
-
-        return $this->client->post('plans/calculate', $data);
-    }
-
-    /**
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function listPaymentCards(): ?array
-    {
-        return $this->client->get('paymentscards');
-    }
-
-    /**
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getPaymentCard(string $uuid): ?array
-    {
-        return $this->client->get('paymentscards/'.$uuid);
-    }
-
-    /**
-     * @param array $data
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function createPaymentCard(array $data): ?array
-    {
-        $this->validate($data, [
-            'account' => 'required|string',
-            'gateway' => 'required|string',
-            'token' => 'required|string',
-        ]);
-
-        return $this->client->post('paymentscards', $data);
-    }
-
-    /**
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getInvoice(string $uuid): ?array
-    {
-        return $this->client->get('invoices/'.$uuid);
-    }
-
-    /**
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getRecipient(string $uuid): ?array
-    {
-        return $this->client->get('recipients/'.$uuid);
-    }
-
-    /**
-     * @param array $data
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function createRecipient(array $data): ?array
-    {
-        $this->validate($data, [
-            'account' => 'required|string',
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'receive_invoice' => 'required|boolean',
-            'receive_payment_confirmation' => 'required|boolean',
-            'receive_subscription_notifications' => 'required|boolean',
-        ]);
-
-        return $this->client->post('recipients', $data);
-    }
-
-    /**
-     * @param array $data
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function updateRecipient(array $data, string $uuid): ?array
-    {
-        $this->validate($data, [
-            'account' => 'required|string',
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'receive_invoice' => 'required|boolean',
-            'receive_payment_confirmation' => 'required|boolean',
-            'receive_subscription_notifications' => 'required|boolean',
-        ]);
-
-        return $this->client->put('recipients/'.$uuid, $data);
-    }
-
-    /**
-     * @param string $uuid
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function deleteRecipient(string $uuid): ?array
-    {
-        return $this->client->delete('recipients/'.$uuid);
-    }
-
-    /**
-     * @param array $data
-     * @param array $rules
-     * @return array
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    private function validate(array $data, array $rules): array
-    {
-        $validator = \Illuminate\Support\Facades\Validator::make($data, $rules);
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
-
-        return $validator->validated();
-    }
 }
