@@ -1,4 +1,4 @@
-# Very short description of the package
+# API Client for Fenerum
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/napp/fenerum-api-client.svg?style=flat-square)](https://packagist.org/packages/napp/fenerum-api-client)
 [![Build Status](https://img.shields.io/travis/napp/fenerum-api-client/master.svg?style=flat-square)](https://travis-ci.org/napp/fenerum-api-client)
@@ -79,7 +79,7 @@ $accounts = app(\Fenerum\ApiService::class)->account();
 // or without DI
 $client = new \Fenerum\ApiClient();
 $fenerum = new \Fenerum\ApiService($client);
-$fenerum->account();
+$accounts = $fenerum->account();
 ```
 
 
