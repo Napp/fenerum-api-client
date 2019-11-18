@@ -77,4 +77,17 @@ class WebhookTest extends TestCase
         WebhookProcessor::handle('renew_subscription_soon', ['dummy' => 'data']);
         Event::assertDispatched(RenewSubscriptionSoon::class);
     }
+
+    public function test_it_will_send_event_data_on_webhook_event()
+    {
+        WebhookProcessor::handle('renew_subscription_soon', ['dummy' => 'data']);
+
+        Event::assertDispatched(RenewSubscriptionSoon::class, function ($event) {
+            $this->assertArrayHasKey('dummy', $event->getData());
+            $this->assertEquals('renew_subscription_soon', $event->getEvent());
+            $this->assertEquals('data', $event->getData()['dummy']);
+
+            return true;
+        });
+    }
 }

@@ -4,6 +4,7 @@
 [![Build Status](https://img.shields.io/travis/napp/fenerum-api-client/master.svg?style=flat-square)](https://travis-ci.org/napp/fenerum-api-client)
 [![Quality Score](https://img.shields.io/scrutinizer/g/napp/fenerum-api-client.svg?style=flat-square)](https://scrutinizer-ci.com/g/napp/fenerum-api-client)
 [![Total Downloads](https://img.shields.io/packagist/dt/napp/fenerum-api-client.svg?style=flat-square)](https://packagist.org/packages/napp/fenerum-api-client)
+[![Code Coverage](https://scrutinizer-ci.com/g/Napp/fenerum-api-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Napp/fenerum-api-client/?branch=master)
 
 
 ## Installation
@@ -54,6 +55,18 @@ CancelSubscription::class => [
 ],
 ```
 
+### Webhook Events supported
+
+* AccountCreated 
+* AccountUpdated
+* CancelSubscription
+* NewActivity
+* NewInvoice
+* PaidInvoice
+* PlanTermsCreated
+* PlanTermsUpdated
+* RenewSubscriptionSoon
+
 
 ## Usage
 
@@ -78,18 +91,6 @@ use Fenerum\ApiService;
 $accounts = app(ApiService::class)->account()->listAccounts();
 ```
 
-
-### Webhook Events supported
-
-* AccountCreated 
-* AccountUpdated
-* CancelSubscription
-* NewActivity
-* NewInvoice
-* PaidInvoice
-* PlanTermsCreated
-* PlanTermsUpdated
-* RenewSubscriptionSoon
 
 
 
