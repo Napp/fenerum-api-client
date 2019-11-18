@@ -156,6 +156,20 @@ $result = $fenerum->subscription()->createSubscription([
 ```
 
 
+#### Download invoice
+
+```php
+$invoice = app(\Fenerum\ApiService::class)
+            ->invoice()
+            ->getInvoice('24260f57-f190-4cfa-a2a0-d8a8d827bda8');
+
+$filePath = public_path('invoice_'.$invoice['invoice_number'].'.pdf');
+file_put_contents($filePath, base64_decode($invoice['pdf_base64']));
+
+return response()->download($filePath)->deleteFileAfterSend(true);
+
+```
+
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
