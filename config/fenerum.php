@@ -1,7 +1,8 @@
 <?php
 
-declare(strict_types=1) {
-    return [
+declare(strict_types=1);
+
+return [
     /*
      * The base URI for the Fenerum API
      * Please dont change it if not needed
@@ -19,4 +20,3 @@ declare(strict_types=1) {
     'webhook_auth_username' => env('FENERUM_AUTH_USERNAME'),
     'webhook_auth_password' => env('FENERUM_AUTH_PASSWORD'),
 ];
-}

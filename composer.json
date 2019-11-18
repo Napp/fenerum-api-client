@@ -28,6 +28,7 @@
     "require-dev": {
         "laravel/framework": "~5.8.0|^6.0",
         "nunomaduro/phpinsights": "^1.9",
+        "orchestra/testbench": "^4.3",
         "phpunit/phpunit": "^8.2",
         "symfony/var-dumper": "^4.3"
     },
@@ -43,6 +44,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
+        "tests": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {

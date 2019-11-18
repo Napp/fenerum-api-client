@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fenerum\Webhooks\Http\Controllers;
 
 use Fenerum\Webhooks\Http\Requests\WebhookRequest;
-use Illuminate\Support\Str;
+use Fenerum\Webhooks\WebhookProcessor;
 
 class WebhookController
 {
@@ -15,10 +15,8 @@ class WebhookController
      */
     public function handle(WebhookRequest $request)
     {
-        $class = 'Fenerum\\Webhooks\\Events\\'.Str::studly($request->input('event'));
-        if (class_exists($class)) {
-            event(new $class($request->input('event'), $request->input('data')));
-
+        $result = WebhookProcessor::handle($request->input('event'), $request->input('data'));
+        if ($result) {
             return response()->json('OK', 200);
         }
 
