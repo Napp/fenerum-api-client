@@ -28,7 +28,7 @@ class WebhookHTTPTest extends TestCase
                 'event' => 'account.created',
                 'data' => [
                     'dummy' => 'data',
-                ]
+                ],
             ],
             $this->httpHeaders());
         $response->assertStatus(200);
@@ -41,7 +41,7 @@ class WebhookHTTPTest extends TestCase
                 'event' => 'account.created',
                 'data' => [
                     'dummy' => 'data',
-                ]
+                ],
             ],
             []);
         $response->assertStatus(403);
@@ -54,7 +54,7 @@ class WebhookHTTPTest extends TestCase
             [
                 'data' => [
                     'dummy' => 'data',
-                ]
+                ],
             ],
             $this->httpHeaders());
         $response->assertStatus(422);
@@ -77,7 +77,7 @@ class WebhookHTTPTest extends TestCase
                 'event' => 'non.existing',
                 'data' => [
                     'dummy' => 'data',
-                ]
+                ],
             ],
             $this->httpHeaders());
         $response->assertStatus(404);
@@ -88,7 +88,7 @@ class WebhookHTTPTest extends TestCase
         return [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'Authorization: Basic '. base64_encode('myuser:mypass'),
+            'Authorization: Basic '.base64_encode('myuser:mypass'),
             'PHP_AUTH_USER' => 'myuser',
             'PHP_AUTH_PW' =>  'mypass',
         ];

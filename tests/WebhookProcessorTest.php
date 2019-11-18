@@ -20,7 +20,7 @@ class WebhookProcessorTest extends TestCase
     public function it_will_an_existing_webhook_event()
     {
         $result = WebhookProcessor::handle('new_activity', [
-            'dummy' => 'data'
+            'dummy' => 'data',
         ]);
 
         Event::assertDispatched(NewActivity::class);
@@ -31,7 +31,7 @@ class WebhookProcessorTest extends TestCase
     public function it_will_not_fire_non_existing_webhook_event()
     {
         $result = WebhookProcessor::handle('non_existing', [
-            'dummy' => 'data'
+            'dummy' => 'data',
         ]);
 
         $this->assertFalse($result);
