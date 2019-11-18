@@ -104,7 +104,7 @@ class ApiClient
                 'headers' => $headers,
             ]);
 
-            return json_decode($response->getBody(), true);
+            return json_decode($response->getBody()->getContents(), true);
         } catch (TransferException $exception) {
             $this->handleException($exception, $uri);
 
