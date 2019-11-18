@@ -83,13 +83,33 @@ $accounts = $fenerum->account();
 ```
 
 
-### Example - Get accounts
+### Examples 
+
+#### Get accounts
 
 ```php
 use Fenerum\ApiService;
 
 $accounts = app(ApiService::class)->account()->listAccounts();
 ```
+
+#### Update Subscription - User Seats
+
+```php
+// find account with id "1234"
+$myAccount = $fenerum->account()->getAccount('1234');
+
+// get the first subscription
+$subId = $myAccount['subscription_set'][0]['uuid'];
+
+// update subscription user seat count
+$updatedSubscription = $fenerum->subscription()->updateSubscription([
+    'quantity' => 59
+], $subId);
+
+```
+
+
 
 
 
