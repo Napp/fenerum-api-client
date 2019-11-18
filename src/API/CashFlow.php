@@ -15,5 +15,4 @@ class CashFlow extends Base
     {
         return $this->client->get('cash-flow/'.$month.'/');
     }
-
 }

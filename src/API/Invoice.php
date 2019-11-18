@@ -35,7 +35,7 @@ class Invoice extends Base
     public function updateInvoice(array $data, string $uuid): ?array
     {
         $this->validate($data, [
-            'kickback_status' => 'string'
+            'kickback_status' => 'string',
         ]);
 
         return $this->client->patch('invoices/'.$uuid.'/', $data);

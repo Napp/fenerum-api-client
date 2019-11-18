@@ -8,7 +8,7 @@ use Fenerum\ApiClient;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class Base
+ * Class Base.
  * @see http://docs.fenerum.com/
  */
 class Base

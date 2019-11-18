@@ -24,5 +24,4 @@ class InvoiceLine extends Base
     {
         return $this->client->get('invoicelines/'.$id.'/');
     }
-
 }

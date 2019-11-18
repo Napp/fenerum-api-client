@@ -35,16 +35,26 @@ class Account extends Base
      */
     public function createAccount(array $data): ?array
     {
-        $this->validate($data, [
+        $validated = $this->validate($data, [
             'company_name' => 'required|string|max:128',
             'code' => 'required|string|max:128',
             'legal_address' => 'required|string',
             'legal_zipcode' => 'required|string',
             'legal_city' => 'required|string',
             'legal_country' => 'required|string',
+            'partner' => 'integer',
+            'ean_invoicing' => 'boolean',
+            'ean_number' => 'string',
+            'language' => 'string',
+            'legal_vat_number' => 'string',
+            'billing_same_as_legal' => 'boolean',
+            'billing_address' => 'string',
+            'billing_zipcode' => 'string',
+            'billing_city' => 'string',
+            'billing_country' => 'string',
         ]);
 
-        return $this->client->post('accounts/', $data);
+        return $this->client->post('accounts/', $validated);
     }
 
     /**
@@ -56,15 +66,25 @@ class Account extends Base
      */
     public function updateAccount(array $data, string $code): ?array
     {
-        $this->validate($data, [
+        $validated = $this->validate($data, [
             'company_name' => 'required|string|max:128',
             'code' => 'required|string|max:128',
             'legal_address' => 'required|string',
             'legal_zipcode' => 'required|string',
             'legal_city' => 'required|string',
             'legal_country' => 'required|string',
+            'partner' => 'integer',
+            'ean_invoicing' => 'boolean',
+            'ean_number' => 'string',
+            'language' => 'string',
+            'legal_vat_number' => 'string',
+            'billing_same_as_legal' => 'boolean',
+            'billing_address' => 'string',
+            'billing_zipcode' => 'string',
+            'billing_city' => 'string',
+            'billing_country' => 'string',
         ]);
 
-        return $this->client->put('accounts/'.$code.'/', $data);
+        return $this->client->put('accounts/'.$code.'/', $validated);
     }
 }

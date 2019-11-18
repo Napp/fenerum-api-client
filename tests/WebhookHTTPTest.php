@@ -27,7 +27,7 @@ class WebhookHTTPTest extends TestCase
             [
                 'event' => 'account.created',
                 'data' => [
-                    'dummy' => 'data'
+                    'dummy' => 'data',
                 ]
             ],
             $this->httpHeaders());
@@ -40,7 +40,7 @@ class WebhookHTTPTest extends TestCase
             [
                 'event' => 'account.created',
                 'data' => [
-                    'dummy' => 'data'
+                    'dummy' => 'data',
                 ]
             ],
             []);
@@ -53,7 +53,7 @@ class WebhookHTTPTest extends TestCase
         $response = $this->postJson('/webhook',
             [
                 'data' => [
-                    'dummy' => 'data'
+                    'dummy' => 'data',
                 ]
             ],
             $this->httpHeaders());
@@ -76,7 +76,7 @@ class WebhookHTTPTest extends TestCase
             [
                 'event' => 'non.existing',
                 'data' => [
-                    'dummy' => 'data'
+                    'dummy' => 'data',
                 ]
             ],
             $this->httpHeaders());
@@ -93,5 +93,4 @@ class WebhookHTTPTest extends TestCase
             'PHP_AUTH_PW' =>  'mypass',
         ];
     }
-
 }

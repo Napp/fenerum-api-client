@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace Fenerum;
 
 use Fenerum\API\Account;
+use Fenerum\API\CashFlow;
 use Fenerum\API\Contract;
+use Fenerum\API\ContractTier;
+use Fenerum\API\DraftInvoiceLines;
 use Fenerum\API\Invoice;
+use Fenerum\API\InvoiceLine;
 use Fenerum\API\PaymentCard;
 use Fenerum\API\Plan;
 use Fenerum\API\Recipient;
 use Fenerum\API\Subscription;
+use Fenerum\API\Webhook;
 
 /**
  * Class ApiService.
@@ -41,6 +46,14 @@ class ApiService
     }
 
     /**
+     * @return \Fenerum\API\CashFlow
+     */
+    public function cashFlow(): CashFlow
+    {
+        return new CashFlow($this->client);
+    }
+
+    /**
      * @return \Fenerum\API\Contract
      */
     public function contract(): Contract
@@ -49,11 +62,35 @@ class ApiService
     }
 
     /**
+     * @return \Fenerum\API\ContractTier
+     */
+    public function contractTier(): ContractTier
+    {
+        return new ContractTier($this->client);
+    }
+
+    /**
+     * @return \Fenerum\API\DraftInvoiceLines
+     */
+    public function draftInvoiceLine(): DraftInvoiceLines
+    {
+        return new DraftInvoiceLines($this->client);
+    }
+
+    /**
      * @return \Fenerum\API\Invoice
      */
     public function invoice(): Invoice
     {
         return new Invoice($this->client);
+    }
+
+    /**
+     * @return \Fenerum\API\InvoiceLine
+     */
+    public function invoiceLine(): InvoiceLine
+    {
+        return new InvoiceLine($this->client);
     }
 
     /**
@@ -88,4 +125,11 @@ class ApiService
         return new Subscription($this->client);
     }
 
+    /**
+     * @return \Fenerum\API\Webhook
+     */
+    public function webhook(): Webhook
+    {
+        return new Webhook($this->client);
+    }
 }
