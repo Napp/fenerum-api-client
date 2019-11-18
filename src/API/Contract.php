@@ -28,13 +28,13 @@ class Contract extends Base
     }
 
     /**
-     * @param string $accountCode
      * @param array $data
+     * @param string $accountCode
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function createContract(string $accountCode, array $data): ?array
+    public function createContract(array $data, string $accountCode): ?array
     {
         $this->validate($data, [
             'plan_terms' => 'required|string',
@@ -48,14 +48,14 @@ class Contract extends Base
     }
 
     /**
-     * @param string $accountCode
      * @param array $data
+     * @param string $accountCode
      * @param string $uuid
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function updateContract(string $accountCode, array $data, string $uuid): ?array
+    public function updateContract(array $data, string $accountCode, string $uuid): ?array
     {
         $this->validate($data, [
             'plan_terms' => 'required|string',

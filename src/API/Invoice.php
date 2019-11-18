@@ -10,7 +10,7 @@ class Invoice extends Base
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function listInvoice(string $uuid): ?array
+    public function listInvoice(): ?array
     {
         return $this->client->get('invoices/');
     }
