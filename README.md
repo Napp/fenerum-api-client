@@ -109,9 +109,51 @@ $updatedSubscription = $fenerum->subscription()->updateSubscription([
 
 ```
 
+#### Create account and add contract, discount and a subscription to it
 
+```php
+/** @var \Fenerum\ApiService $fenerum */
+$fenerum = app(\Fenerum\ApiService::class);
 
+$localAccountCode = '12345678';
+$planTermId = 'c82a888e-2149-4b3c-8e14-ff5086e49417';
 
+// create an account
+$fenerum->account()->createAccount([
+    'company_name' => 'Foo Bar Inc',
+    'code' => $localAccountCode,
+    'legal_address' => 'Road 123',
+    'legal_zipcode' => '90210',
+    'legal_city' => 'Hollywood',
+    'legal_country' => 'US',
+    'billing_same_as_legal' => true,
+    'language' => 'en',
+    'legal_vat_number' => 'US22223344',
+]);
+
+// assign a 24 month contract to the account
+$contract = $fenerum->contract()->createContract([
+    'plan_terms' => $planTermId,
+    'start_date' => now()->startOfDay()->toIso8601String(),
+    'commitment_length' => 24
+], $localAccountCode);
+
+// add 10% discounting
+$fenerum->contractTier()->createContractTier([
+    'minimum_quantity' => 1,
+    'discount' => '10',
+    'discount_type' => 'percent',
+], $localAccountCode, $contract['uuid']);
+
+// add subscription to the account
+$result = $fenerum->subscription()->createSubscription([
+   'account' => $localAccountCode,
+   'terms' => $planTermId,
+   'collection_method' => 'invoice',
+   'start_date' => now()->endOfMonth()->toIso8601String(),
+   'payment_terms' => 14
+]);
+```
 
 
 ### Changelog

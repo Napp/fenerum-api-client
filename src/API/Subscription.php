@@ -37,6 +37,13 @@ class Subscription extends Base
             'account' => 'required|string',
             'terms' => 'required|string',
             'collection_method' => 'required|string',
+            'start_date' => 'date',
+            'quantity' => 'integer',
+            'group_on_invoice' => 'boolean',
+            'payment_terms' => 'integer',
+            'pre_renewal_invoicing' => 'boolean',
+            'po_number' => 'string',
+            'invoice_supplement' => 'string',
         ]);
 
         return $this->client->post('subscriptions/', $data);
