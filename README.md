@@ -109,7 +109,7 @@ $updatedSubscription = $fenerum->subscription()->updateSubscription([
 
 ```
 
-#### Create account and add contract, discount and a subscription to it
+#### Create account and add subscription (simple version)
 
 ```php
 /** @var \Fenerum\ApiService $fenerum */
@@ -129,6 +129,48 @@ $fenerum->account()->createAccount([
     'billing_same_as_legal' => true,
     'language' => 'en',
     'legal_vat_number' => 'US22223344',
+]);
+
+// add subscription to the account
+$result = $fenerum->subscription()->createSubscription([
+   'account' => $localAccountCode,
+   'terms' => $planTermId,
+   'collection_method' => 'invoice',
+   'start_date' => now()->endOfMonth()->toIso8601String(),
+   'payment_terms' => 14
+]);
+```
+
+#### Create account and add recipient, contract, discount and a subscription (advanced version)
+
+```php
+/** @var \Fenerum\ApiService $fenerum */
+$fenerum = app(\Fenerum\ApiService::class);
+
+$localAccountCode = '12345678';
+$planTermId = 'c82a888e-2149-4b3c-8e14-ff5086e49417';
+
+// create an account
+$account = $fenerum->account()->createAccount([
+    'company_name' => 'Foo Bar Inc',
+    'code' => $localAccountCode,
+    'legal_address' => 'Road 123',
+    'legal_zipcode' => '90210',
+    'legal_city' => 'Hollywood',
+    'legal_country' => 'US',
+    'billing_same_as_legal' => true,
+    'language' => 'en',
+    'legal_vat_number' => 'US22223344',
+]);
+
+// create a recipient
+$fenerum->recipient()->createRecipient([
+    'account' => $account['uuid'],
+    'name' => 'John Doe',
+    'email' => 'john@doe.com',
+    'receive_invoice' => true,
+    'receive_payment_confirmation' => true,
+    'receive_subscription_notifications' => true,
 ]);
 
 // assign a 24 month contract to the account
