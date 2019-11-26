@@ -73,6 +73,6 @@ class Subscription extends Base
             'cancellation_type' => 'required|string',
         ]);
 
-        return $this->client->put('subscriptions/'.$uuid.'/cancel/', $data);
+        return $this->client->post('subscriptions/'.$uuid.'/cancel/', $data);
     }
 }
