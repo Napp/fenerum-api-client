@@ -8,7 +8,7 @@ class DraftInvoiceLines extends Base
 {
     /**
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listDraftInvoiceLines(): ?array
     {
@@ -18,7 +18,7 @@ class DraftInvoiceLines extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getDraftInvoiceLine(string $uuid): ?array
     {
@@ -28,8 +28,8 @@ class DraftInvoiceLines extends Base
     /**
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createDraftInvoiceLine(array $data): ?array
     {
@@ -54,8 +54,8 @@ class DraftInvoiceLines extends Base
      * @param array $data
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateDraftInvoiceLine(array $data, string $uuid): ?array
     {
@@ -79,7 +79,7 @@ class DraftInvoiceLines extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function deleteDraftInvoiceLine(string $uuid): ?array
     {

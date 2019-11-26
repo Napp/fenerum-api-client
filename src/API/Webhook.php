@@ -8,7 +8,7 @@ class Webhook extends Base
 {
     /**
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listWebhooks(): ?array
     {
@@ -18,7 +18,7 @@ class Webhook extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getWebhook(string $uuid): ?array
     {
@@ -28,8 +28,8 @@ class Webhook extends Base
     /**
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createWebhook(array $data): ?array
     {
@@ -48,8 +48,8 @@ class Webhook extends Base
      * @param array $data
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateWebhook(array $data, string $uuid): ?array
     {

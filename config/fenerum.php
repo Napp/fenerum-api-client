@@ -19,4 +19,9 @@ return [
      */
     'webhook_auth_username' => env('FENERUM_AUTH_USERNAME'),
     'webhook_auth_password' => env('FENERUM_AUTH_PASSWORD'),
+
+    /*
+     * Debug mode will print API requests and validation errors to log files
+     */
+    'debug' => false,
 ];

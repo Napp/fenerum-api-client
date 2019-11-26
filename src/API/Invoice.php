@@ -8,7 +8,7 @@ class Invoice extends Base
 {
     /**
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listInvoice(): ?array
     {
@@ -18,7 +18,7 @@ class Invoice extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getInvoice(string $uuid): ?array
     {
@@ -29,8 +29,8 @@ class Invoice extends Base
      * @param array $data
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateInvoice(array $data, string $uuid): ?array
     {

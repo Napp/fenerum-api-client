@@ -9,7 +9,7 @@ class Recipient extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getRecipient(string $uuid): ?array
     {
@@ -19,8 +19,8 @@ class Recipient extends Base
     /**
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createRecipient(array $data): ?array
     {
@@ -40,8 +40,8 @@ class Recipient extends Base
      * @param array $data
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateRecipient(array $data, string $uuid): ?array
     {
@@ -60,7 +60,7 @@ class Recipient extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function deleteRecipient(string $uuid): ?array
     {

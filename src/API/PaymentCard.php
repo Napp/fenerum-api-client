@@ -8,7 +8,7 @@ class PaymentCard extends Base
 {
     /**
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listPaymentCards(): ?array
     {
@@ -18,7 +18,7 @@ class PaymentCard extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getPaymentCard(string $uuid): ?array
     {
@@ -28,8 +28,8 @@ class PaymentCard extends Base
     /**
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createPaymentCard(array $data): ?array
     {

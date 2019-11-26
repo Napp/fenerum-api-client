@@ -8,7 +8,7 @@ class Subscription extends Base
 {
     /**
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listSubscriptions(): ?array
     {
@@ -18,7 +18,7 @@ class Subscription extends Base
     /**
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getSubscription(string $uuid): ?array
     {
@@ -28,8 +28,8 @@ class Subscription extends Base
     /**
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createSubscription(array $data): ?array
     {
@@ -53,7 +53,7 @@ class Subscription extends Base
      * @param array $data
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function updateSubscription(array $data, string $uuid): ?array
     {
@@ -64,8 +64,8 @@ class Subscription extends Base
      * @param array $data
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function cancelSubscription(array $data, string $uuid): ?array
     {

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Fenerum\API;
 
+use Fenerum\API\Exceptions\FenerumValidationException;
 use Fenerum\ApiClient;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Base.
@@ -31,7 +33,7 @@ class Base
      * @param string $uri
      * @param array|null $payload
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function call(string $method, string $uri, ?array $payload = null): ?array
     {
@@ -42,15 +44,27 @@ class Base
      * @param array $data
      * @param array $rules
      * @return array
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     protected function validate(array $data, array $rules): array
     {
-        $validator = \Illuminate\Support\Facades\Validator::make($data, $rules);
+        $validator = Validator::make($data, $rules);
         if ($validator->fails()) {
-            throw new ValidationException($validator);
+            $this->logger($validator->errors()->toJson());
+
+            throw new FenerumValidationException($validator);
         }
 
         return $validator->validated();
+    }
+
+    /**
+     * @param string $string
+     */
+    private function logger(string $string): void
+    {
+        if (true === config('fenerum.debug')) {
+            Log::debug(\get_class($this) . ' ' . $string);
+        }
     }
 }

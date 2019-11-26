@@ -10,7 +10,7 @@ class ContractTier extends Base
      * @param string $accountCode
      * @param string $contract
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listContractTiers(string $accountCode, string $contract): ?array
     {
@@ -22,7 +22,7 @@ class ContractTier extends Base
      * @param string $contract
      * @param string $id
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getContract(string $accountCode, string $contract, string $id): ?array
     {
@@ -34,8 +34,8 @@ class ContractTier extends Base
      * @param string $accountCode
      * @param string $contract
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createContractTier(array $data, string $accountCode, string $contract): ?array
     {
@@ -57,8 +57,8 @@ class ContractTier extends Base
      * @param string $contract
      * @param string $id
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateContractTier(array $data, string $accountCode, string $contract, string $id): ?array
     {
@@ -76,9 +76,10 @@ class ContractTier extends Base
 
     /**
      * @param string $accountCode
-     * @param string $uuid
+     * @param string $contract
+     * @param string $id
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function deleteContractTier(string $accountCode, string $contract, string $id): ?array
     {

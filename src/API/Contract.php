@@ -9,7 +9,7 @@ class Contract extends Base
     /**
      * @param string $accountCode
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listContracts(string $accountCode): ?array
     {
@@ -20,7 +20,7 @@ class Contract extends Base
      * @param string $accountCode
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getContract(string $accountCode, string $uuid): ?array
     {
@@ -31,8 +31,8 @@ class Contract extends Base
      * @param array $data
      * @param string $accountCode
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function createContract(array $data, string $accountCode): ?array
     {
@@ -52,8 +52,8 @@ class Contract extends Base
      * @param string $accountCode
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateContract(array $data, string $accountCode, string $uuid): ?array
     {
@@ -72,7 +72,7 @@ class Contract extends Base
      * @param string $accountCode
      * @param string $uuid
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function deleteContract(string $accountCode, string $uuid): ?array
     {

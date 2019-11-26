@@ -9,7 +9,7 @@ class CashFlow extends Base
     /**
      * @param string $month (MM-YYYY)
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getCashFlow(string $month): ?array
     {

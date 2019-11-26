@@ -8,7 +8,7 @@ class Account extends Base
 {
     /**
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function listAccounts(): ?array
     {
@@ -18,7 +18,7 @@ class Account extends Base
     /**
      * @param string $code
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function getAccount(string $code): ?array
     {
@@ -30,8 +30,8 @@ class Account extends Base
      *
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function createAccount(array $data): ?array
     {
@@ -61,8 +61,8 @@ class Account extends Base
      * @param array $data
      * @param string $code
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
+     * @throws \Fenerum\API\Exceptions\FenerumValidationException
      */
     public function updateAccount(array $data, string $code): ?array
     {

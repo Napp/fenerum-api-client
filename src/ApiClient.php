@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Fenerum;
 
+use Fenerum\API\Exceptions\FenerumApiException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
-use Psr\Http\Message\ResponseInterface;
 
 class ApiClient
 {
@@ -30,7 +30,7 @@ class ApiClient
     /**
      * @param string $url
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function get(string $url): ?array
     {
@@ -41,7 +41,7 @@ class ApiClient
      * @param string $url
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function post(string $url, array $data): ?array
     {
@@ -51,8 +51,8 @@ class ApiClient
     /**
      * @param string $url
      * @param array $data
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return array
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function put(string $url, array $data): ?array
     {
@@ -63,7 +63,7 @@ class ApiClient
      * @param string $url
      * @param array $data
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function patch(string $url, array $data): ?array
     {
@@ -73,7 +73,7 @@ class ApiClient
     /**
      * @param string $url
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function delete(string $url): ?array
     {
@@ -88,12 +88,12 @@ class ApiClient
      * @param array|null $payload
      * @param array $headers
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
     public function request(string $method, string $uri, $payload = null, array $headers = []): ?array
     {
         if (! $this->isEnabled()) {
-            Log::debug('FenerumAPIClient is not enabled. Please review config');
+            $this->logger('is not enabled. Please review config');
 
             return null;
         }
@@ -103,54 +103,20 @@ class ApiClient
                 'json' => $payload,
                 'headers' => $headers,
             ]);
+            $this->logger("Request url: {$uri}", $payload ?? []);
 
             return json_decode($response->getBody()->getContents(), true);
-        } catch (TransferException $exception) {
+        } catch (GuzzleException $exception) {
             $this->handleException($exception, $uri);
-
-            return null;
         }
     }
 
     /**
-     * Send Async Request as we dont want to wait for reply.
-     *
-     * @param string $method
+     * @param GuzzleException $exception
      * @param string $uri
-     * @param array|null $payload
-     * @param array $headers
-     * @param callable|null $callback
-     * @return null
+     * @throws \Fenerum\API\Exceptions\FenerumApiException
      */
-    public function requestAsync(string $method, string $uri, $payload = null, $headers = [], ?callable $callback = null)
-    {
-        if (! $this->isEnabled()) {
-            Log::debug('FenerumAPIClient is not enabled. Please review config');
-
-            return null;
-        }
-
-        $promise = $this->client->requestAsync($method, $uri, [
-            'json' => $payload,
-            'headers' => $headers,
-        ])->then(
-            static function (ResponseInterface $res) use ($callback) {
-                if (null !== $callback) {
-                    $callback(json_decode($res->getBody(), true));
-                }
-            },
-            function (TransferException $exception) use ($uri) {
-                $this->handleException($exception, $uri);
-            }
-        );
-        $promise->wait();
-    }
-
-    /**
-     * @param TransferException $exception
-     * @param string $uri
-     */
-    private function handleException(TransferException $exception, string $uri): void
+    private function handleException(GuzzleException $exception, string $uri): void
     {
         $response = $exception->getResponse();
         $code = $exception->getCode();
@@ -161,9 +127,9 @@ class ApiClient
             $body = $response->getBody();
         }
 
-        Log::error("FenerumAPIClient Response Error: url: {$uri} Response: {$body}. Response code: $code.");
+        $this->logger("Response Error: url: {$uri} Response: {$body}. Response code: $code.");
 
-        throw $exception;
+        throw new FenerumApiException($body, $code, $exception);
     }
 
     /**
@@ -173,5 +139,16 @@ class ApiClient
     private function isEnabled(): bool
     {
         return null !== config('fenerum.base_uri') && null !== config('fenerum.api_token');
+    }
+
+    /**
+     * @param string $string
+     * @param array|null $context
+     */
+    private function logger(string $string, ?array $context = []): void
+    {
+        if (true === config('fenerum.debug')) {
+            Log::debug(\get_class($this) . ' ' . $string, $context);
+        }
     }
 }
