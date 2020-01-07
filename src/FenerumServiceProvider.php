@@ -13,7 +13,7 @@ class FenerumServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/fenerum.php' => config_path('fenerum.php'),
-            ], 'config');
+            ], 'fenerum');
         }
     }
 

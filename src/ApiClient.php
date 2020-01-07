@@ -124,7 +124,7 @@ class ApiClient
 
         if (null !== $response) {
             $code = $response->getStatusCode();
-            $body = $response->getBody();
+            $body = $response->getBody()->getContents();
         }
 
         $this->logger("Response Error: url: {$uri} Response: {$body}. Response code: $code.");
